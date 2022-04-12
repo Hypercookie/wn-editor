@@ -7,7 +7,7 @@ setup(
     name='wn-editor',
     version='0.0.2',
     packages=['editor'],
-    url='https://github.com/Hypercookie/wn-edtior',
+    url='https://github.com/Hypercookie/wn-editor',
     license='MIT',
     author='Jannes Müller',
     author_email='jannes@mlrjs.de',
