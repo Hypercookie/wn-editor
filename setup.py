@@ -1,8 +1,11 @@
 from setuptools import setup
+from pathlib import Path
 
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 setup(
     name='wn-editor',
-    version='0.0.1',
+    version='0.0.2',
     packages=['editor'],
     url='https://github.com/Hypercookie/wn-edtior',
     license='MIT',
@@ -12,5 +15,7 @@ setup(
     description='Make wordnets editable with wn and this editor extension.',
     install_requires=[
         "wn"
-    ]
+    ],
+    long_description=long_description,
+    long_description_content_type='text/markdown'
 )
