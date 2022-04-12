@@ -1,11 +1,11 @@
 from setuptools import setup
 
 setup(
-    name='wn-edtior',
+    name='wn-editor',
     version='0.0.1',
     packages=['editor'],
     url='https://github.com/Hypercookie/wn-edtior',
-    license='MIT License  ',
+    license='MIT',
     author='Jannes Müller',
     author_email='jannes@mlrjs.de',
     python_requires='>3.5',
