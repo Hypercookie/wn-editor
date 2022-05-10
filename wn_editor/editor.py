@@ -418,7 +418,7 @@ class _Editor:
 
     def get_lexicon_editor(self) -> Optional[LexiconEditor]:
         """
-        Get the :class:`LexiconEditor` corresponding to this editor.
+        Get the :class:`LexiconEditor` corresponding to this wn_editor.
         """
         if not isinstance(self.lex_rowid, list):
             return LexiconEditor(self.lex_rowid)
@@ -427,13 +427,13 @@ class _Editor:
 class LexiconEditor(_Editor):
     """
 
-    The Lexicon Editor is the top most and most general editor. It provides methods that can be applied to change
+    The Lexicon Editor is the top most and most general wn_editor. It provides methods that can be applied to change
     a lexicon. It can __not__ create new lexicons. This class can either be created with a row id of a lexicon or an id.
 
     >>> LexiconEditor("odenet")
-    <wn.editor.LexiconEditor object at 0x1023fb6a0>
+    <wn.wn_editor.LexiconEditor object at 0x1023fb6a0>
     >>> LexiconEditor(1)
-    <wn.editor.LexiconEditor object at 0x1023fb430>
+    <wn.wn_editor.LexiconEditor object at 0x1023fb430>
 
     """
 
@@ -513,7 +513,7 @@ class LexiconEditor(_Editor):
 
     def create_synset(self) -> SynsetEditor:
         """
-        Create a new Synset and return the editor
+        Create a new Synset and return the wn_editor
         """
         return SynsetEditor(_get_lex_name_from_lex_id(self.lex_rowid))
 
@@ -521,7 +521,7 @@ class LexiconEditor(_Editor):
         self, synset: Optional[Synset] = None, entry_row_id: Optional[int] = None
     ) -> SenseEditor:
         """
-        Create a new sense and return the editor
+        Create a new sense and return the wn_editor
         Pass a Synset or/and an Entry id to automatically attach to those. Else they are created.
         """
         entry_edit = EntryEditor(entry_row_id) if entry_row_id else self.create_entry()
@@ -530,13 +530,13 @@ class LexiconEditor(_Editor):
 
     def create_entry(self) -> EntryEditor:
         """
-        Create a new entry and return the editor
+        Create a new entry and return the wn_editor
         """
         return EntryEditor(self.lex_rowid, False)
 
     def create_form(self, entry_row_id: Optional[int] = None) -> FormEditor:
         """
-        Create a new form and return the editor
+        Create a new form and return the wn_editor
         """
         return (
             FormEditor(entry_row_id)
@@ -747,7 +747,7 @@ def _delete_sense_sense_relation(
 class SynsetEditor(_Editor):
     """
 
-    The SynsetEditor provides an editor for a synset. It can be created with a :class:`wn.Synset`
+    The SynsetEditor provides an wn_editor for a synset. It can be created with a :class:`wn.Synset`
     or a rowid / id of a lexicon. If a id is passed a new synset will be created.
 
     """
@@ -1162,7 +1162,7 @@ def _set_sense_sense_relation(
 class SenseEditor(_Editor):
     """
 
-    The SenseEditor provides an editor for :class:`wn.Sense`. It can be created using a existing :class:`wn.Sense` or
+    The SenseEditor provides an wn_editor for :class:`wn.Sense`. It can be created using a existing :class:`wn.Sense` or
     passing the lexicon_rowid, the entry_rowid and the synset_rowid as arguments.
 
     """
@@ -1570,7 +1570,7 @@ class EntryEditor(_Editor):
 class FormEditor(_Editor):
     """
 
-    The FormEditor provides a editor for :class:`wn.Form`. It can be created using an existing form or an entry_id
+    The FormEditor provides a wn_editor for :class:`wn.Form`. It can be created using an existing form or an entry_id
 
     """
 
