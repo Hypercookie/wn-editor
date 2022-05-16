@@ -428,7 +428,7 @@ class LexiconEditor(_Editor):
     """
 
     The Lexicon Editor is the top most and most general wn_editor. It provides methods that can be applied to change
-    a lexicon. It can __not__ create new lexicons. This class can either be created with a row id of a lexicon or an id.
+    a lexicon. This class can either be created with a row id of a lexicon or an id.
 
     >>> LexiconEditor("odenet")
     <wn.wn_editor.LexiconEditor object at 0x1023fb6a0>
