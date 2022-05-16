@@ -5,7 +5,7 @@ build-backend = "flit_core.buildapi"
 name = "wn-editor"
 dynamic = ['version']
 authors = [
-    {name = "Jannes Müller",email ="jannes@mlrjs.de"}
+    {mail ="jannes@mlrjs.de"}
 ]
 description = "An editor for wordnets, extending the popular 'wn' package."
 license = { file = "LICENSE" }
