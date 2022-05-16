@@ -3,7 +3,7 @@ name: Upload to PyPI
 on:
   release:
     types: [created]
-
+  workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,7 +15,7 @@ jobs:
         python-version: '3.9'
     - name: Install dependencies
       run: |
-        python3.8 -m pip install "flit~=3.0"
+        python3.9 -m pip install "flit~=3.0"
     - name: Build and publish
       env:
         FLIT_USERNAME: ${{ secrets.PYPI_USERNAME }}
