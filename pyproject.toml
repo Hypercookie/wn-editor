@@ -5,7 +5,7 @@ build-backend = "flit_core.buildapi"
 name = "wn-editor"
 dynamic = ['version']
 authors = [
-    {mail ="jannes@mlrjs.de"}
+    {email ="jannes@mlrjs.de"}
 ]
 description = "An editor for wordnets, extending the popular 'wn' package."
 license = { file = "LICENSE" }
@@ -18,11 +18,11 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python",
     "Typing :: Typed",
-    "Development Status :: 5",
+    "Development Status :: 3 - Alpha",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.10 :: Only",
+    "Programming Language :: Python :: 3.10",
     "Topic :: Scientific/Engineering :: Information Analysis",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Text Processing :: Linguistic"
