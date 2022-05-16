@@ -24,10 +24,9 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Text Processing :: Linguistic"
 ]
-keywords = ["wn", "wordnet", "editor"]
-[tool.flit.metadata]
 author = "Jannes Müller"
 author-email = "jannes@mlrjs.de"
+keywords = ["wn", "wordnet", "editor"]
 [dependencies]
 wn = "0.9.1"
 [project.urls]
