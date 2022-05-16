@@ -12,7 +12,7 @@ This is done by using different editor classes for the various wordnet component
 2. import the package (and wn) like so
 ```python
 import wn 
-from wn-editor import LexiconEditor
+from wn_editor.editor import LexiconEditor
 
 # Get and editor for an installed lexicon
 lex_edit = LexiconEditor('odenet')
