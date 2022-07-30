@@ -8,7 +8,7 @@ import wn
 from wn import Synset
 from wn._add import logger
 from wn._db import connect
-from wn._queries import get_modified
+from wn._queries import get_modified, get_definitions
 from wn.lmf import (
     Metadata,
 )
@@ -319,7 +319,7 @@ def _get_row_id(synset: Synset) -> int:
 
 
 def _remove_relation(
-    synset_source: Synset, synset_target: Synset, relationType: RelationType | int
+        synset_source: Synset, synset_target: Synset, relationType: RelationType | int
 ) -> None:
     if isinstance(relationType, RelationType):
         relationType = relationType.value
@@ -342,10 +342,10 @@ def _remove_relation(
 
 
 def _set_relation_to_sense(
-    sense: wn.Sense,
-    synset: Synset,
-    relationType: RelationType | int,
-    meta: Optional[Metadata] = None,
+        sense: wn.Sense,
+        synset: Synset,
+        relationType: RelationType | int,
+        meta: Optional[Metadata] = None,
 ):
     if isinstance(relationType, RelationType):
         relationType = relationType.value
@@ -371,10 +371,10 @@ def _set_relation_to_sense(
 
 
 def _set_relation_to_synset(
-    synset_source: Synset,
-    synset_target: Synset,
-    relationType: RelationType | int,
-    meta: Optional[Metadata] = None,
+        synset_source: Synset,
+        synset_target: Synset,
+        relationType: RelationType | int,
+        meta: Optional[Metadata] = None,
 ) -> None:
     if isinstance(relationType, RelationType):
         relationType = relationType.value
@@ -439,17 +439,17 @@ class LexiconEditor(_Editor):
 
     @classmethod
     def create_new_lexicon(
-        cls,
-        lex_id: str,
-        label: str,
-        language: str,
-        email: str,
-        lex_license: str,
-        version: str,
-        url: str = None,
-        citation: str = None,
-        logo: str = None,
-        metadata: Optional[Metadata] = None,
+            cls,
+            lex_id: str,
+            label: str,
+            language: str,
+            email: str,
+            lex_license: str,
+            version: str,
+            url: str = None,
+            citation: str = None,
+            logo: str = None,
+            metadata: Optional[Metadata] = None,
     ) -> LexiconEditor:
         """
         Creates a new Lexicon with the attribute 'artificial' and returns its :class:`LexiconEditor`
@@ -462,8 +462,8 @@ class LexiconEditor(_Editor):
         metadata = metadata if metadata else {}
         if "note" in metadata:
             metadata["note"] = (
-                metadata["note"] if metadata["note"] else ""
-            ) + " _.artificial"
+                                   metadata["note"] if metadata["note"] else ""
+                               ) + " _.artificial"
         else:
             metadata["note"] = " _.artificial"
         with connect() as conn:
@@ -518,7 +518,7 @@ class LexiconEditor(_Editor):
         return SynsetEditor(_get_lex_name_from_lex_id(self.lex_rowid))
 
     def create_sense(
-        self, synset: Optional[Synset] = None, entry_row_id: Optional[int] = None
+            self, synset: Optional[Synset] = None, entry_row_id: Optional[int] = None
     ) -> SenseEditor:
         """
         Create a new sense and return the wn_editor
@@ -545,7 +545,7 @@ class LexiconEditor(_Editor):
         )
 
     def add_syntactic_behaviour(
-        self, syn_id: str, frame: str, sense: Optional[wn.Sense] = None
+            self, syn_id: str, frame: str, sense: Optional[wn.Sense] = None
     ):
         """
         Create a new Syntactic Behaviour. Can be passed a Sense to map it to
@@ -562,19 +562,19 @@ class LexiconEditor(_Editor):
             conn.commit()
 
     def delete_syntactic_behaviour(
-        self,
-        syn_row_id: int = None,
-        syn_id: str = None,
-        frame: str = None,
+            self,
+            syn_row_id: int = None,
+            syn_id: str = None,
+            frame: str = None,
     ):
         """
         Delete a syntactic behaviour
         """
         if (
-            syn_row_id is None
-            and None in (syn_id, frame)
-            or syn_row_id is not None
-            and (syn_id is not None or frame is not None)
+                syn_row_id is None
+                and None in (syn_id, frame)
+                or syn_row_id is not None
+                and (syn_id is not None or frame is not None)
         ):
             raise AttributeError
         else:
@@ -703,7 +703,7 @@ class IlIEditor(_Editor):
 
 
 def _delete_relaton_to_sense(
-    sense: wn.Sense, synset: Synset, reltype: RelationType | int
+        sense: wn.Sense, synset: Synset, reltype: RelationType | int
 ):
     if isinstance(reltype, RelationType):
         reltype = reltype.value
@@ -724,7 +724,8 @@ def _delete_relaton_to_sense(
 
 
 def _delete_sense_sense_relation(
-    sense_source: wn.Sense, sense_target: wn.Sense, relation_type: RelationType | int
+        sense_source: wn.Sense, sense_target: wn.Sense,
+        relation_type: RelationType | int
 ):
     if isinstance(relation_type, RelationType):
         relation_type = relation_type.value
@@ -874,7 +875,7 @@ class SynsetEditor(_Editor):
 
     @_modifies_db
     def set_relation_to_sense(
-        self, sense: wn.Sense, relation_type: RelationType | int
+            self, sense: wn.Sense, relation_type: RelationType | int
     ) -> SynsetEditor:
         """
 
@@ -886,7 +887,7 @@ class SynsetEditor(_Editor):
 
     @_modifies_db
     def delete_relation_to_sense(
-        self, sense: wn.Sense, relation_type: RelationType | int
+            self, sense: wn.Sense, relation_type: RelationType | int
     ):
         """
         Deletes a relation to a sense
@@ -896,7 +897,7 @@ class SynsetEditor(_Editor):
 
     @_modifies_db
     def set_relation_to_synset(
-        self, synset: Synset | str, relation_type: RelationType | int
+            self, synset: Synset | str, relation_type: RelationType | int
     ) -> SynsetEditor:
         """
 
@@ -911,7 +912,7 @@ class SynsetEditor(_Editor):
 
     @_modifies_db
     def delete_relation_to_synset(
-        self, synset: Synset | str, reltype: RelationType | int
+            self, synset: Synset | str, reltype: RelationType | int
     ) -> SynsetEditor:
         """
 
@@ -993,12 +994,32 @@ class SynsetEditor(_Editor):
                 return wn.synset(id=res[0][0], lexicon=res[0][1])
 
     @_modifies_db
+    def mod_definition(self, definition: str, indx: int = 0,
+                       sense: Optional[wn.Sense] = None, language: Optional[str] = None,
+                       metadata: Optional[Metadata] = None) -> SenseEditor:
+        defs = get_definitions(self.rowid, [self.lex_rowid])
+        query = """
+        UPDATE definitions
+        SET definition = ?
+        WHERE rowid = ?
+        """
+        if len(list(defs)) == 0:
+            self.add_definition(
+                definition, sense, language, metadata
+            )
+        else:
+            with connect() as conn:
+                conn.cursor().execute(query, (definition, list(defs)[indx][-1]))
+                conn.commit()
+        return self
+
+    @_modifies_db
     def add_definition(
-        self,
-        definition: str,
-        sense: Optional[wn.Sense] = None,
-        language: Optional[str] = None,
-        metadata: Optional[Metadata] = None,
+            self,
+            definition: str,
+            sense: Optional[wn.Sense] = None,
+            language: Optional[str] = None,
+            metadata: Optional[Metadata] = None,
     ) -> SynsetEditor:
         """
 
@@ -1023,10 +1044,10 @@ class SynsetEditor(_Editor):
 
     @_modifies_db
     def add_example(
-        self,
-        example: str,
-        language: Optional[str] = None,
-        meta: Optional[Metadata] = None,
+            self,
+            example: str,
+            language: Optional[str] = None,
+            meta: Optional[Metadata] = None,
     ) -> SynsetEditor:
         """
         Add an example to this synset
@@ -1065,7 +1086,7 @@ class SynsetEditor(_Editor):
 
     @_modifies_db
     def set_proposed_ili(
-        self, definition: str, meta: Optional[Metadata] = None
+            self, definition: str, meta: Optional[Metadata] = None
     ) -> SynsetEditor:
         """
         Set the proposed ILI
@@ -1076,7 +1097,7 @@ class SynsetEditor(_Editor):
         
         """
         if bool(
-            connect().cursor().execute(exists_query, (self.rowid,)).fetchall()[0][0]
+                connect().cursor().execute(exists_query, (self.rowid,)).fetchall()[0][0]
         ):
             # Exists -> Modify
             query = (
@@ -1134,10 +1155,10 @@ def _get_sense_info_from_row_id(rowid: int) -> tuple[int, int, int, str]:
 
 
 def _set_sense_sense_relation(
-    sense_source: wn.Sense,
-    sense_target: wn.Sense,
-    relation_type: RelationType | int,
-    meta: Optional[Metadata] = None,
+        sense_source: wn.Sense,
+        sense_target: wn.Sense,
+        relation_type: RelationType | int,
+        meta: Optional[Metadata] = None,
 ):
     query = """
     
@@ -1168,15 +1189,15 @@ class SenseEditor(_Editor):
     """
 
     def __init__(
-        self,
-        sense: wn.Sense = None,
-        lexicon_rowid: int = None,
-        entry_rowid: int = None,
-        synset_rowid: int = None,
+            self,
+            sense: wn.Sense = None,
+            lexicon_rowid: int = None,
+            entry_rowid: int = None,
+            synset_rowid: int = None,
     ):
         if not (
-            (sense and not (lexicon_rowid or entry_rowid or synset_rowid))
-            or (not sense and (lexicon_rowid and entry_rowid and synset_rowid))
+                (sense and not (lexicon_rowid or entry_rowid or synset_rowid))
+                or (not sense and (lexicon_rowid and entry_rowid and synset_rowid))
         ):
             raise AttributeError
         else:
@@ -1341,7 +1362,7 @@ class SenseEditor(_Editor):
 
     @_modifies_db
     def set_count(
-        self, count: int | wn.Count, meta: Optional[Metadata] = None
+            self, count: int | wn.Count, meta: Optional[Metadata] = None
     ) -> SenseEditor:
         """
         set the count of the sense
@@ -1370,10 +1391,10 @@ class SenseEditor(_Editor):
 
     @_modifies_db
     def update_count(
-        self,
-        count: wn.Count,
-        new_count: wn.Count | int,
-        meta: Optional[Metadata] = None,
+            self,
+            count: wn.Count,
+            new_count: wn.Count | int,
+            meta: Optional[Metadata] = None,
     ):
         """
         Updates an existing count
@@ -1400,10 +1421,10 @@ class SenseEditor(_Editor):
 
     @_modifies_db
     def add_example(
-        self,
-        example: str,
-        language: Optional[str] = None,
-        meta: Optional[Metadata] = None,
+            self,
+            example: str,
+            language: Optional[str] = None,
+            meta: Optional[Metadata] = None,
     ) -> SenseEditor:
         """
         Add an example to this sense
@@ -1693,12 +1714,12 @@ class FormEditor(_Editor):
 
     @_modifies_db
     def add_pronunciation(
-        self,
-        pronunciation,
-        variety: str = None,
-        notation: str = None,
-        phonemic: bool = True,
-        audio: str = None,
+            self,
+            pronunciation,
+            variety: str = None,
+            notation: str = None,
+            phonemic: bool = True,
+            audio: str = None,
     ):
         """
 
@@ -1717,12 +1738,12 @@ class FormEditor(_Editor):
 
     @_modifies_db
     def delete_pronunciation(
-        self,
-        pronunciation,
-        variety: str = None,
-        notation: str = None,
-        phonemic: bool = True,
-        audio: str = None,
+            self,
+            pronunciation,
+            variety: str = None,
+            notation: str = None,
+            phonemic: bool = True,
+            audio: str = None,
     ):
         """
 
